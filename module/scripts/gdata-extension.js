@@ -1,7 +1,6 @@
-<!doctype html>
-<!--
+/*
 
-Copyright 2011, Google Inc.
+Copyright 2010, Google Inc.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -30,31 +29,34 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
--->
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Google Refine - Authorized</title>
-</head>
-<body>
-  Authorization process completed. Close this window and return to Google Refine.
+*/
+
+var GdataExtension = {};
+
+GdataExtension.isAuthorized = function() {
+  return $.cookie('authsub_token') !== null;
+};
+
+GdataExtension.showAuthorizationDialog = function(onAuthorized, onNotAuthorized) {
+  if (window.name) {
+    var windowName = window.name;
+  } else {
+    var windowName = "googlerefine" + new Date().getTime();
+    window.name = windowName;
+  }
   
-  <script>
-    var windowName = "$winname";
-    var callbackName = "$callback";
-    
-    var w = window.open("", windowName);
-    var callback = w[callbackName];
-    if (callback) {
-      try {
-        callback();
-      } catch (e) {
-        alert(e.message);
-      }
-    } else {
-      w.close();
+  var callbackName = "cb" + new Date().getTime();
+  var callback = function(evt) {
+    delete window[callbackName];
+    if (GdataExtension.isAuthorized()) {
+      onAuthorized();
+    } else if (onNotAuthorized) {
+      onNotAuthorized();
     }
-    window.close();
-  </script>
-</body>
-</html>
+    window.setTimeout(function() { win.close(); }, 100);
+  };
+  window[callbackName] = callback;
+  
+  var url = ModuleWirings['gdata'] + "authorize?winname=" + escape(windowName) + "&callback=" + escape(callbackName);
+  var win = window.open(url, "googlerefinegdataauth", "resizable=1,width=800,height=600");
+};
