@@ -1,0 +1,15 @@
+module/MOD-INF/classes/
+module/MOD-INF/lib/
+
+# MacOS ignored files
+.DS_Store
+
+# eclipse-related files
+.classpath
+.project
+.settings
+
+# maven output
+target/
+test-output
+
