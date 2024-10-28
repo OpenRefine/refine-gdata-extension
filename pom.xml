@@ -10,7 +10,15 @@
   <name>OpenRefine - Gdata extension</name>
   <description>Connects with Google services for data import and export</description>
   <url>http://openrefine.org/</url>
-   
+ 
+  <licenses>
+    <license>
+      <name>BSD-3-Clause</name>
+      <url>https://raw.githubusercontent.com/OpenRefine/OpenRefine/master/LICENSE.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  
   <properties>
     <openrefine.version>3.9-SNAPSHOT</openrefine.version>
   </properties>
@@ -54,6 +62,38 @@
             <outputDirectory>module/MOD-INF/lib</outputDirectory>
             <includeScope>runtime</includeScope>
           </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>3.4.0</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>module/MOD-INF/lib</directory>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.7.1</version>
+        <configuration>
+          <appendAssemblyId>false</appendAssemblyId>	
+          <finalName>openrefine-gdata-extension-${project.version}</finalName>
+          <descriptors>
+            <descriptor>src/assembly/extension.xml</descriptor>
+          </descriptors>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>
@@ -122,6 +162,21 @@
     </dependency>
 
   </dependencies>
+
+  <!-- enabled to access OpenRefine snapshot releases -->
+  <repositories>
+    <repository>
+      <id>snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
 
 </project>
 
