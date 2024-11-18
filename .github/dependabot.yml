@@ -9,3 +9,7 @@ updates:
   schedule:
     interval: monthly
   open-pull-requests-limit: 15
+  groups:
+    maven:
+      patterns:
+        - "*"
