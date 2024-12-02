@@ -1,4 +1,5 @@
-# OpenRefine extension for Google Sheets and Google Drive
+OpenRefine extension for Google Sheets and Google Drive
+=======================================================
 
 by Tom Morris <tfmorris@gmail.com> and other OpenRefine contributors
 
@@ -11,7 +12,7 @@ Download it from [the Releases pages](https://github.com/OpenRefine/refine-gdata
 Unpack the contents of this archive (jar, zip, etc) into the extensions folder
 of OpenRefine.
 
-# Steps to obtain OAuth credentials:
+## Steps to obtain OAuth credentials:
 
 To obtain data from [Google Drive](https://www.google.com/drive/) or [Google Sheets](https://www.google.com/sheets/about/) for OpenRefine requires OAuth credentials. For obtaining the OAuth credentials follow these steps:
 
