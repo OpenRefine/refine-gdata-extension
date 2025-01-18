@@ -4,7 +4,7 @@
 
   <groupId>org.openrefine.extensions</groupId>
   <artifactId>refine-gdata-extension</artifactId>
-  <version>3.9-SNAPSHOT</version>
+  <version>1.0</version>
   <packaging>jar</packaging>
 
   <name>OpenRefine - Gdata extension</name>
